@@ -50,13 +50,13 @@ export function getBbox(data) {
 }
 
 export function plotSections(map, percentages) {
-  const bbox = getBbox(map.features); // bbox original shape
-  let bboxAuxiliary = getBbox(map.features); // bbox auxiliary
+  const bbox = getBbox(map?.features); // bbox original shape
+  let bboxAuxiliary = getBbox(map?.features); // bbox auxiliary
   const clipedSections = [];
 
-  for (let i = 0; i < percentages.length; i++) {
-    const higherLimit = bboxAuxiliary.geometry.coordinates[0][2][1];
-    const inferiorLimit = bboxAuxiliary.geometry.coordinates[0][1][1];
+  for (let i = 0; i < percentages?.length; i++) {
+    const higherLimit = bboxAuxiliary?.geometry?.coordinates[0][2][1];
+    const inferiorLimit = bboxAuxiliary?.geometry?.coordinates[0][1][1];
     clipedSections[i] = definePolyBasedPercentage(
       map,
       bboxAuxiliary,
@@ -66,7 +66,7 @@ export function plotSections(map, percentages) {
     );
     bboxAuxiliary = getPersonalizedBbox(
       bbox,
-      bboxAuxiliary.geometry.coordinates[0][2][1],
+      bboxAuxiliary?.geometry?.coordinates[0][2][1],
     ); // getBbox([clipedSections[0]]).bbox[3]
   }
 

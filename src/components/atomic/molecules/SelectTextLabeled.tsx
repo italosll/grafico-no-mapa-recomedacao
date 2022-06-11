@@ -1,7 +1,18 @@
 /* eslint-disable react/no-array-index-key */
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable import/extensions */
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/jsx-filename-extension */
+
 import { Button, ButtonProps } from '@chakra-ui/button';
 import { Flex, Text } from '@chakra-ui/layout';
-import { FlexProps } from '@chakra-ui/react';
+import { FlexProps, Select } from '@chakra-ui/react';
 
 import {
   Dispatch, SetStateAction, useEffect, useState,
@@ -20,12 +31,12 @@ const ContainerMenuProps: FlexProps = {
   overflow: 'hidden',
 };
 
-const SelectProps: ButtonProps = {
+const SelectProps: any = {
   background: 'white',
   border: 'solid 2px lightgray',
   width: { base: '100%', lg: '35vw' },
   maxWidth: { lg: '350px' },
-  roundedTop: '3xl',
+  rounded: '3xl',
 };
 
 const OptionProps: ButtonProps = {
@@ -46,20 +57,20 @@ export default function SelectTextLabeled({
 }: SelectTextLabeledProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  useEffect(() => {
-    const key = localStorage?.getItem(
-      label
-        .replaceAll(' ', '_')
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, ''),
-    );
-    if (key) setValue(key);
-  }, []);
+  // useEffect(() => {
+  //   const key = localStorage?.getItem(
+  //     label
+  //       .replaceAll(' ', '_')
+  //       .toLowerCase()
+  //       .normalize('NFD')
+  //       .replace(/[\u0300-\u036f]/g, ''),
+  //   );
+  //   if (key) setValue(key);
+  // }, []);
 
   return (
-    <Flex direction="column" marginX={{ base: '0px', lg: 'auto' }}>
-      <Text color="gray" marginRight="auto">
+    <Flex direction="column" margin="10px">
+      <Text color="white" marginRight="auto">
         {label}
       </Text>
       <Flex color="blue" direction="column">
@@ -67,37 +78,21 @@ export default function SelectTextLabeled({
           onClick={() => setIsDropdownOpen(true)}
           onBlur={() => setTimeout(() => setIsDropdownOpen(false), 150)}
         >
-          <Button
+          <Select
             {...SelectProps}
-            roundedBottom={isDropdownOpen ? '0px' : '3xl'}
+            onChange={(e) => setValue(e.target.value)}
           >
-            {value === '' ? 'Selecionar' : value}
-          </Button>
+            {options?.map((option, index) => (
+              <option
+                value={option}
+                key={index}
+              >
+                {option}
+              </option>
+            ))}
+          </Select>
         </Flex>
-        <Flex
-          display={isDropdownOpen ? 'flex' : 'none'}
-          {...ContainerMenuProps}
-        >
-          {options?.map((option, index) => (
-            <Button
-              key={index}
-              {...OptionProps}
-              onClick={() => {
-                setValue(option);
-                localStorage.setItem(
-                  label
-                    .replaceAll(' ', '_')
-                    .toLowerCase()
-                    .normalize('NFD')
-                    .replace(/[\u0300-\u036f]/g, ''),
-                  option,
-                );
-              }}
-            >
-              {option}
-            </Button>
-          ))}
-        </Flex>
+
       </Flex>
       <Text color="transparent">erro</Text>
     </Flex>

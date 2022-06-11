@@ -1,3 +1,9 @@
+/* eslint-disable import/extensions */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-unused-vars */
 import { useEffect } from 'react';
 import {
